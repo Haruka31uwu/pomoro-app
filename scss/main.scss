@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100;200;300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+$primary-color: #70F3F8;
+$red:#F87070;
+$blue:#70F3F8;
+$purple:#D881F8;
+$white-1: #FFFFFF;
+$white-2: #D7E0FF;
+$white-3: #EFF1FA;
+$black-1: #161932;
+$black-2: #1E213F;
+$black-3: #000000;
+$gray-1:#E3E1E1;
+$text-color: #1E213F;
+$font-family: 'Kumbh Sans', sans-serif;
+$font-family-2: 'Roboto Slab', serif;
+$font-family-3: 'Space Mono', monospace;
+$border: 5px solid $black-1;
+$font-weight: 300;
+$display: flex;
+$flex-direction: row;
+$justify-content: center;
+$align-items: center;
+$row-gap: 0;
+$column-gap: 0;
+
+@mixin theme($theme: $text-color, $font: $font-family, $weight: $font-weight, $background: $black-1) {
+    color: $theme;
+    font-family: $font;
+    font-weight: $weight;
+    background: $background;
+}
+
+@mixin display($dis: $display, $flex-direction: $flex-direction, $justify-content: $justify-content, $align-items: $align-items, $row-gap: $row-gap, $column-gap: $column-gap) {
+    display: $dis;
+    flex-direction: $flex-direction;
+    justify-content: $justify-content;
+    align-items: $align-items;
+    row-gap: $row-gap;
+    column-gap: $column-gap;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include display($dis: $display, $justify-content: $justify-content, $flex-direction: $flex-direction);
+
+    li {
+        background: $white-1;
+        @include theme($theme: $white-2, $weight: 700);
+        font-size: 14px;
+        border: $border;
+        border-right: none;
+        border-left: none;
+        @include display($dis: $display, $justify-content: $justify-content, $flex-direction: $flex-direction);
+
+
+        span {
+            padding: 0.8em 1em;
+            border-radius: 2em;
+            opacity: 0.4;
+        }
+
+        &:hover {
+            opacity: 1;
+            cursor: pointer;
+        }
+    }
+
+    span.selected-option {
+        @include theme($theme: $black-1, $background: $primary-color, $weight: 700);
+        opacity: 1;
+
+    }
+
+    li:first-child {
+        border-radius: 2em 0 0 2em;
+        border-left: $border;
+    }
+
+    li:last-child {
+        border-radius: 0 2em 2em 0;
+        border-right: $border;
+
+    }
+}
+
+.circle-container {
+    background: linear-gradient(315deg, #2E325A 0%, #0E112A 100%);
+    box-shadow: 50px 50px 100px 0px #121530, -50px -50px 100px 0px #272C5A;
+    width: 410px;
+    height: 410px;
+    @include display($dis: $display, $justify-content: $justify-content, $flex-direction: $flex-direction);
+
+    border-radius: 50%;
+    position: relative;
+
+    .time-container {
+        position: absolute;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        span {
+            @include theme($theme: $white-2, $weight: 700);
+            text-align: center;
+        }
+
+        span:last-child {
+            @include theme($theme: $white-2, $weight: 300);
+            letter-spacing: 15px;
+        }
+
+        span:first-child {
+            font-size: 5em;
+
+        }
+    }
+
+}
+
+.loader-container {
+    position: absolute;
+    border-radius: 50%;
+    background: $black-1;
+    height: 366px;
+    width: 366px;
+}
+
+svg {
+    z-index: 2;
+
+    #circle {
+        fill: $primary-color;
+
+    }
+
+    #settings-icon {
+        fill: $white-2;
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 1;
+            cursor: pointer;
+        }
+    }
+}
+
+.settings-modal {
+    position: absolute;
+    z-index: 999;
+    background: $white-1;
+    width: 90%;
+    max-width: 40em;
+    border-radius: 1.2em;
+    transition: all 0.5s ease-in-out;
+    animation: modal 0.5s ease-in-out;
+}
+
+@keyframes modal {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+.modal {
+    .modal-title{
+        @include display($dis: $display, $justify-content: space-between, $flex-direction: $flex-direction);
+        padding: 0 2em;
+        svg{
+            &:hover{
+                cursor: pointer;
+                stroke: $black-3;
+                stroke-opacity: 1;
+            }
+        }
+        h3{
+            @include theme($theme: $black-1, $weight: 700, $background: transparent);
+            font-size: 1.5em;
+        }
+    }
+    
+    .time-settings{
+        h4{
+            @include theme($theme: $black-1, $weight: 700, $background: transparent);
+            letter-spacing: 5px;
+        }
+    }
+    section{
+        padding: 0.5em 2em;
+        
+    }section:last-child{
+        padding-bottom: 2em;
+    }
+    .main-divider{
+        width: 99%;
+        opacity: 0.5;
+
+    }
+    hr{
+        width: 90%;
+        opacity: 0.1;
+    }
+
+}
+
+.time-setings-options {
+    @include display($dis: $display, $justify-content: $justify-content, $flex-direction: $flex-direction, $column-gap: 1.5em);
+
+}
+
+.select-container {
+    min-width: 30%;
+    display: flex;
+    flex-direction: column;
+
+    .option-tittle {
+        @include theme($theme: $black-1, $weight: 700, $background: transparent);
+        margin-bottom: 0.5em;
+        opacity: 0.5;
+
+    }
+
+    .select-option-selected {
+        display: flex;
+        flex-direction: row;
+        border-radius: 1em;
+        background: $white-3;
+        justify-content: space-between;
+        padding: 0 1em;
+        align-items: center;
+
+        .selected-option {
+            padding: 0.9em 1.2em;
+            @include theme($theme: $black-1, $weight: 700, $background: transparent);
+        }
+
+        .options-handler {
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.3em;
+
+            svg:hover {
+                cursor: pointer;
+
+                path {
+                    stroke: $black-3;
+                    stroke-opacity: 1;
+                }
+            }
+        }
+    }
+
+    .option-container {
+        .options-list {
+            @include theme($theme: $black-1, $background: $white-1, $weight: 700, $font: $font-family);
+            display: flex;
+            padding: 0.9em 1.2em;
+
+        }
+    }
+}
+
+.font-settings, .color-settings{
+    @include display($dis: $display, $justify-content: space-between, $flex-direction: $flex-direction);
+
+    h4 {
+        @include theme($theme: $black-1, $weight: 700, $background: transparent);
+        letter-spacing: 5px;
+    }
+
+    .font-options{
+        @include display($dis: $display, $justify-content: space-between, $flex-direction: $flex-direction, $column-gap: 0.5em);
+
+        span {
+            @include theme($theme: $black-1, $weight: 700, $background: $white-3);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            @include display($dis: $display, $justify-content: center, $flex-direction: $flex-direction);
+        }
+
+        span.selected {
+            @include theme($theme: $black-1, $weight: 700, $background: $black-1);
+            color: $white-1;
+        }
+
+        span:first-child {
+            font-family: $font-family;
+
+        }
+
+        span:nth-child(2) {
+            font-family: $font-family-2;
+        }
+
+        span:last-child {
+            font-family: $font-family-3;
+        }
+
+    }
+    
+}
+.color-options{
+    @include display($dis: $display, $justify-content: space-between, $flex-direction: $flex-direction, $column-gap: 0.5em);
+    span{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }span:first-child {
+        background: $red
+    }
+
+    span:nth-child(2) {
+        background: $blue;
+    }
+
+    span:last-child {
+        background: $purple;
+    }
+}
+
+body {
+    background: $black-2;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2em;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

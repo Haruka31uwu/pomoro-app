@@ -2,16 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 $primary-color: #70F3F8;
-$red:#F87070;
-$blue:#70F3F8;
-$purple:#D881F8;
+$red: #F87070;
+$blue: #70F3F8;
+$purple: #D881F8;
 $white-1: #FFFFFF;
 $white-2: #D7E0FF;
 $white-3: #EFF1FA;
 $black-1: #161932;
 $black-2: #1E213F;
 $black-3: #000000;
-$gray-1:#E3E1E1;
+$gray-1: #E3E1E1;
 $text-color: #1E213F;
 $font-family: 'Kumbh Sans', sans-serif;
 $font-family-2: 'Roboto Slab', serif;
@@ -133,10 +133,6 @@ ul {
 svg {
     z-index: 2;
 
-    #circle {
-        fill: $primary-color;
-
-    }
 
     #settings-icon {
         fill: $white-2;
@@ -149,6 +145,29 @@ svg {
     }
 }
 
+.circular-chart {
+    display: block;
+    max-width: 80%;
+    max-height: 366px;
+    .circle {
+        stroke: url(#linear);
+        fill: none;
+        stroke-width: 1.4;
+        stroke-linecap: round;
+        
+      }
+      
+      @keyframes progress {
+        0% {
+          stroke-dasharray: 0 100;
+        }
+      }
+      stop{
+        stop-color: $primary-color;
+      }
+  }
+  
+  
 .settings-modal {
     position: absolute;
     z-index: 999;
@@ -169,41 +188,49 @@ svg {
         transform: translateY(0);
     }
 }
+
 .modal {
-    .modal-title{
+    .modal-title {
         @include display($dis: $display, $justify-content: space-between, $flex-direction: $flex-direction);
         padding: 0 2em;
-        svg{
-            &:hover{
+
+        svg {
+            &:hover {
                 cursor: pointer;
                 stroke: $black-3;
                 stroke-opacity: 1;
             }
         }
-        h3{
+
+        h3 {
             @include theme($theme: $black-1, $weight: 700, $background: transparent);
             font-size: 1.5em;
         }
     }
-    
-    .time-settings{
-        h4{
+
+    .time-settings {
+        h4 {
             @include theme($theme: $black-1, $weight: 700, $background: transparent);
             letter-spacing: 5px;
         }
     }
-    section{
+
+    section {
         padding: 0.5em 2em;
-        
-    }section:last-child{
+
+    }
+
+    section:last-child {
         padding-bottom: 2em;
     }
-    .main-divider{
+
+    .main-divider {
         width: 99%;
         opacity: 0.5;
 
     }
-    hr{
+
+    hr {
         width: 90%;
         opacity: 0.1;
     }
@@ -267,7 +294,8 @@ svg {
     }
 }
 
-.font-settings, .color-settings{
+.font-settings,
+.color-settings {
     @include display($dis: $display, $justify-content: space-between, $flex-direction: $flex-direction);
 
     h4 {
@@ -275,7 +303,7 @@ svg {
         letter-spacing: 5px;
     }
 
-    .font-options{
+    .font-options {
         @include display($dis: $display, $justify-content: space-between, $flex-direction: $flex-direction, $column-gap: 0.5em);
 
         span {
@@ -305,15 +333,19 @@ svg {
         }
 
     }
-    
+
 }
-.color-options{
+
+.color-options {
     @include display($dis: $display, $justify-content: space-between, $flex-direction: $flex-direction, $column-gap: 0.5em);
-    span{
+
+    span {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-    }span:first-child {
+    }
+
+    span:first-child {
         background: $red
     }
 

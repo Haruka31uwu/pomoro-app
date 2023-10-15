@@ -3,23 +3,68 @@
     <div class="circle-container">
       <div class="loader-container"></div>
       <div class="time-container">
-        <span>17:59</span>
+        <span>{{ formatTimer(timer.timer.value) }}</span>
         <span>PAUSE</span>
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="340"
-        height="340"
-        viewBox="0 0 340 340"
-        fill="none"
-      >
+      <svg viewBox="0 0 36 36" class="circular-chart">
+        <defs>
+          <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#05a" />
+          </linearGradient>
+        </defs>
         <path
-          id="circle"
-          d="M29.536 75.1017C31.2387 72.5862 34.6582 71.9273 37.1737 73.63C39.6892 75.3327 40.3481 78.7522 38.6454 81.2677C21.048 107.265 11.5 137.913 11.5 170C11.5 257.537 82.4629 328.5 170 328.5C257.537 328.5 328.5 257.537 328.5 170C328.5 82.4629 257.537 11.5 170 11.5C166.962 11.5 164.5 9.03757 164.5 6C164.5 2.96243 166.962 0.5 170 0.5C263.612 0.5 339.5 76.3877 339.5 170C339.5 263.612 263.612 339.5 170 339.5C76.3877 339.5 0.5 263.612 0.5 170C0.5 135.698 10.716 102.905 29.536 75.1017Z"
-          fill="#F87070"
+          class="circle"
+          stroke-dasharray="100, 100"
+          d="M18 2.0845
+            a 15.9155 15.9155 0 0 1 0 31.831
+            a 15.9155 15.9155 0 0 1 0 -31.831"
         />
       </svg>
     </div>
-   
   </div>
 </template>
+<script>
+import { initTimer,getTimerConfig} from "/composables/timer.js";
+export default {
+  setup() {
+    const timer = initTimer(100);
+    const timerConfigs = getTimerConfig;
+    onMounted(() => {
+      timer.start();
+      setProgressCircle(timer.timer.value);
+      console.log(timerConfigs.value.selected)
+    });
+    const formatTimer = (timeInSeconds) => {
+      const hours = Math.floor(timeInSeconds / 3600);
+      if (hours > 0){
+        timer.stop();
+        return "59:59";
+      };
+      if (timeInSeconds <= 0){
+        timer.stop();
+        return "00:00";
+      }
+      const minutes = Math.floor((timeInSeconds % 3600) / 60);
+      const seconds = timeInSeconds % 60;
+      return `${padZero(minutes)}:${padZero(seconds)}`;
+    };
+
+    // Función para agregar un cero delante de un número si es menor que 10
+    const padZero = (number) => {
+      return number < 10 ? `0${number}` : number;
+    };
+    const setProgressCircle = (timer) => {
+        const circle= document.querySelector('.circle')
+        circle.animate([
+            {strokeDasharray: '100, 0'},
+            {strokeDasharray: '0, 100'}
+        ],{
+            duration: timer*1000,
+            easing: 'ease-out',
+            fill: 'forwards'
+        })
+    };
+    return { timer, formatTimer };
+  },
+};
+</script>
